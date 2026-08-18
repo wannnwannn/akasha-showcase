@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Shared Media - Akasha</title>
-    <!-- Mets ici ton CSS habituel -->
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div id="loading">Chargement des données...</div>
@@ -17,8 +17,12 @@
 
     <script>
         // 1. Récupération de l'ID dans l'URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const shareId = urlParams.get('id');
+        const path = window.location.pathname;
+        let shareId = null;
+        // Si l'URL contient bien "/s/", on coupe la chaîne de texte pour récupérer ce qu'il y a après
+        if (path.startsWith('/s/')) {
+            shareId = path.split('/s/')[1];
+        }
 
         // Remplace par tes vraies clés Supabase
         const SUPABASE_URL = 'https://ewdtspjgcuvwvjnooytf.supabase.co';
