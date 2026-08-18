@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akasha - Fiche Partagée</title>
+    <title>Akasha - Media</title>
     <link rel="stylesheet" href="/share.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
@@ -12,28 +12,20 @@
 
     <div id="media-card" class="card" style="display: none;">
         <div class="poster-container">
-            <img id="media-poster" src="" alt="Affiche">
+            <img id="media-poster" src="" alt="Poster">
         </div>
         
         <div class="card-content">
             <div class="header-row">
-                <h1 id="media-title">Titre</h1>
-                <!-- La pastille est maintenant à droite du titre -->
+                <h1 id="media-title">Title</h1>
                 <span id="media-type" class="badge">Type</span>
             </div>
 
-            <!-- Bloc d'infos techniques -->
-            <div class="meta-block" id="meta-block">
-                <!-- Les éléments seront injectés ici en JS -->
-            </div>
-
+            <div class="meta-block" id="meta-block"></div>
             <div id="media-author" class="author"></div>
-
             <div id="media-tags" class="tags-container"></div>
-
             <p id="media-desc" class="description"></p>
             
-            <!-- Boutons d'action -->
             <div class="actions-grid">
                 <a id="btn-trailer" href="#" target="_blank" class="btn-action">
                     ▶ Bande-annonce
@@ -44,11 +36,56 @@
                 <a id="open-app-btn" href="#" class="btn-action btn-primary">
                     Ouvrir dans Akasha
                 </a>
+                <!-- NOUVEAU BOUTON -->
+                <a id="btn-discover" href="/" class="btn-action">
+                    ✨ Découvrir Akasha
+                </a>
             </div>
         </div>
     </div>
 
     <script>
+        // --- 1. SYSTEME DE TRADUCTION INTEGRE (i18n) ---
+        // On détecte la langue du navigateur (fr-FR, en-US, etc.) et on garde les 2 premières lettres
+        const userLang = navigator.language.slice(0, 2) === 'fr' ? 'fr' : 'en';
+        
+        const i18n = {
+            fr: {
+                loading: "Analyse de la matrice...",
+                trailer: "▶ Bande-annonce",
+                release: "📅 Date de sortie",
+                openApp: "Ouvrir dans Akasha",
+                discover: "✨ Découvrir Akasha",
+                by: "Par",
+                errorExp: "Ce lien a expiré ou n'existe pas.",
+                errorConn: "Erreur de connexion.",
+                invalid: "Lien de partage invalide.",
+                unknownTitle: "Titre inconnu"
+            },
+            en: {
+                loading: "Analyzing matrix...",
+                trailer: "▶ Trailer",
+                release: "📅 Release date",
+                openApp: "Open in Akasha",
+                discover: "✨ Discover Akasha",
+                by: "By",
+                errorExp: "This link has expired or does not exist.",
+                errorConn: "Connection error.",
+                invalid: "Invalid share link.",
+                unknownTitle: "Unknown title"
+            }
+        };
+
+        const t = i18n[userLang];
+
+        // Application immédiate des traductions sur l'interface statique
+        document.getElementById('loading').innerText = t.loading;
+        document.getElementById('btn-trailer').innerText = t.trailer;
+        document.getElementById('btn-release').innerText = t.release;
+        document.getElementById('open-app-btn').innerText = t.openApp;
+        document.getElementById('btn-discover').innerText = t.discover;
+
+        // --- 2. EXTRACTION ET RECUPERATION DES DONNEES ---
         const path = window.location.pathname;
         let shareId = null;
         if (path.startsWith('/s/')) shareId = path.split('/s/')[1];
@@ -67,18 +104,17 @@
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('media-card').style.display = 'flex';
                     
-                    const title = media.title || media.name || media.title_romaji || 'Titre inconnu';
+                    const title = media.title || media.name || media.title_romaji || t.unknownTitle;
                     document.getElementById('media-title').innerText = title;
                     
                     const coverUrl = media.cover || media.cover_url || media.image_url || media.poster_path;
                     if(coverUrl) document.getElementById('media-poster').src = coverUrl;
 
-                    // --- GESTION DU TYPE ET DES COULEURS (Inspiré d'Akasha) ---
+                    // Type et couleurs
                     const typeEl = document.getElementById('media-type');
                     const mType = (media.type || 'MEDIA').toUpperCase();
                     typeEl.innerText = mType;
                     
-                    // Attribution de la couleur selon le type
                     if(mType.includes('ANIME')) { typeEl.style.backgroundColor = 'var(--color-anime)'; typeEl.style.color = '#fff'; }
                     else if(mType.includes('MANGA')) { typeEl.style.backgroundColor = 'var(--color-manga)'; typeEl.style.color = '#fff'; }
                     else if(mType.includes('FILM') || mType.includes('MOVIE')) { typeEl.style.backgroundColor = 'var(--color-film)'; typeEl.style.color = '#fff'; }
@@ -88,36 +124,31 @@
                     else if(mType.includes('WEBCOMIC') || mType.includes('WEBTOON')) { typeEl.style.backgroundColor = 'var(--color-webcomic)'; typeEl.style.color = '#fff'; }
                     else { typeEl.style.backgroundColor = 'rgba(255,255,255,0.1)'; }
 
-                    // --- BLOC META (Episodes, Durée, Source) ---
+                    // Bloc technique
                     const metaBlock = document.getElementById('meta-block');
-                    
-                    // 1. Episodes/Chapitres
                     const totalEps = media.totalEpisodes || media.total_episodes || media.episodes;
                     const totalChap = media.chapters;
                     if (totalEps) metaBlock.innerHTML += `<div class="meta-item">0 / ${totalEps} EPS</div>`;
                     else if (totalChap) metaBlock.innerHTML += `<div class="meta-item">0 / ${totalChap} CHAP</div>`;
 
-                    // 2. Durée
                     if (media.runtime || media.duration) {
                         metaBlock.innerHTML += `<div class="meta-item">⏱ ${media.runtime || media.duration}m</div>`;
                     }
 
-                    // 3. Année + Source
                     const yearInfo = String(media.year || media.release_date || media.first_air_date || '').substring(0, 4);
                     const source = media.source ? media.source.toUpperCase() : (media.id && media.id.toString().length > 6 ? 'ANILIST' : 'TMDB');
                     if(yearInfo) metaBlock.innerHTML += `<div class="meta-item">${yearInfo} • ${source}</div>`;
 
-                    // --- REALISATEUR / AUTEUR ---
+                    // Auteur / Réalisateur
                     const authorEl = document.getElementById('media-author');
-                    if (media.director) authorEl.innerText = `Par ${media.director}`;
-                    else if (media.author) authorEl.innerText = `Par ${media.author}`;
+                    if (media.director) authorEl.innerText = `${t.by} ${media.director}`;
+                    else if (media.author) authorEl.innerText = `${t.by} ${media.author}`;
                     else authorEl.style.display = 'none';
 
-                    // --- TAGS / GENRES ---
+                    // Tags
                     const tagsEl = document.getElementById('media-tags');
                     const genres = media.genres || media.tags || [];
                     if (genres.length > 0) {
-                        // On prend les 3 premiers genres maximum pour ne pas casser le design
                         genres.slice(0, 3).forEach(g => {
                             tagsEl.innerHTML += `<span class="tag">${g.name || g}</span>`;
                         });
@@ -125,18 +156,27 @@
                         tagsEl.style.display = 'none';
                     }
 
-                    // --- DESCRIPTION ---
+                    // Description
                     const desc = media.description || media.synopsis || media.overview || '';
                     document.getElementById('media-desc').innerHTML = desc;
 
-                    // --- ACTIONS (Recherches Google) ---
+                    // Liens dynamiques
                     const safeTitle = encodeURIComponent(title);
-                    document.getElementById('btn-trailer').href = `https://www.youtube.com/results?search_query=${safeTitle}+trailer+vf`;
-                    document.getElementById('btn-release').href = `https://www.google.com/search?q=${safeTitle}+date+de+sortie`;
-                    document.getElementById('open-app-btn').href = `https://your-akasha.vercel.app/?import=${shareId}`;
+                    
+                    // La recherche Google de base est adaptée selon la langue pour de meilleurs résultats
+                    const trailerQuery = userLang === 'fr' ? '+trailer+vf' : '+trailer';
+                    const releaseQuery = userLang === 'fr' ? '+date+de+sortie' : '+release+date';
+                    
+                    document.getElementById('btn-trailer').href = `https://www.youtube.com/results?search_query=${safeTitle}${trailerQuery}`;
+                    document.getElementById('btn-release').href = `https://www.google.com/search?q=${safeTitle}${releaseQuery}`;
+                    document.getElementById('open-app-btn').href = `https://app.akasha.app/?import=${shareId}`;
+                } else {
+                    document.getElementById('loading').innerText = t.errorExp;
                 }
             })
-            .catch(() => { document.getElementById('loading').innerText = "Erreur de connexion."; });
+            .catch(() => { document.getElementById('loading').innerText = t.errorConn; });
+        } else {
+            document.getElementById('loading').innerText = t.invalid;
         }
     </script>
 </body>
