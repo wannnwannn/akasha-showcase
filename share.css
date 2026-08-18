@@ -238,6 +238,11 @@ body {
         padding: 1.5rem 1.5rem 0 1.5rem;
         background-color: transparent;
     }
+    .poster-wrapper {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
 
     /* Sur mobile, on redimensionne l'affiche en format miniature élégant */
     .poster-wrapper {
