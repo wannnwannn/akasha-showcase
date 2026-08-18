@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+    <title>Akasha - Media Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <!-- Police similaire à ton design -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Symbole d'arrière-plan (le grand 'A' flouté) -->
+    <div class="bg-symbol">あ</div>
+
+    <!-- Navigation avec Glassmorphism -->
+    <header class="navbar">
+        <div class="logo"><svg width="1.5rem" height="100%" viewBox="0 0 122 127" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+            <g transform="matrix(1,0,0,1,-9774.588277,-986.553996)">
+                <g transform="matrix(1,0,0,1,9756.703676,902)">
+                    <g transform="matrix(1.137638,0,0,1.137638,78.748211,147.692882)">
+                        <g transform="matrix(1,0,0,1,-53.5,-55.5)">
+                            <path d="M20.619,13.441C20.329,13.426 20.055,13.412 19.799,13.398L20.619,13.441Z" style="fill:rgb(206,66,87);"/>
+                            <path d="M64.089,37.355C59.413,37.449 54.283,37.906 49.843,38.72C44.873,39.647 40.339,40.823 36.239,42.245C31.077,44.078 26.294,46.533 21.887,49.61C17.47,52.694 13.601,56.231 10.276,60.221C7.038,64.209 4.517,68.389 2.701,72.763C0.895,77.115 0,81.486 0,85.884C0,90.407 0.824,93.968 2.362,96.66C3.934,99.411 5.981,101.362 8.498,102.582C11.102,103.845 13.907,104.479 16.932,104.479C22.238,104.479 28.383,102.197 33.777,99.873C33.167,97.589 32.567,95.124 31.98,92.481C31.688,91.15 31.318,89.088 30.923,86.643C27.502,88.168 24.539,88.664 21.796,88.664C19.717,88.664 17.847,88.148 16.667,86.706C15.596,85.397 15.176,83.638 15.176,81.66C15.176,79.016 16.102,76.118 17.79,73.009C19.501,69.857 21.912,66.832 24.991,63.929C28.09,60.922 31.669,58.407 35.717,56.383L35.732,56.375C38.819,54.876 42.658,53.483 47.226,52.19C51.525,50.916 54.3,49.964 59.743,49.839C61.229,46.506 62.406,43.405 63.11,41.04L63.117,41.017L63.125,40.993C63.433,40.069 63.842,38.732 64.089,37.355Z" style="fill:rgb(206,66,87);fill-rule:nonzero;"/>
+                            <path d="M45.145,55.943C41.97,56.947 39.272,57.991 37.043,59.073C34.932,60.13 32.966,61.325 31.143,62.657C31.228,65.951 31.832,71.598 32.577,77.225C33.38,83.281 34.325,89.163 34.908,91.831L35.355,93.797C36.26,97.688 37.186,101.131 38.132,104.127L53.047,99.728C51.764,95.718 50.549,91.574 49.403,87.296C48.104,82.446 47.068,77.134 46.293,71.363L46.292,71.352L46.29,71.339C45.669,66.062 45.224,62.212 45.145,55.943Z" style="fill:rgb(206,66,87);fill-rule:nonzero;"/>
+                            <path d="M83.895,42.313C83.39,43.999 82.963,45.362 82.618,46.398C81.796,49.011 80.901,51.547 79.938,54.005C83.095,55.513 85.192,57.141 87.032,59.818C89.087,62.807 90.112,66.177 90.112,69.884C90.112,73.606 88.994,77.398 86.85,81.239C84.715,85.216 81.065,88.632 76.052,91.534C71.563,94.178 66.546,96.466 59.038,97.581L66.364,110.482C73.903,109.29 80.135,107.38 85.1,104.779L85.112,104.772L85.125,104.767C90.449,102.105 94.63,98.974 97.717,95.399C100.837,91.786 103.034,87.91 104.333,83.77C105.654,79.475 106.312,75.146 106.312,70.78C106.312,63.986 104.476,58.161 100.845,53.238C97.366,48.523 92.105,43.836 84.329,41.088C84.185,41.494 84.04,41.902 83.895,42.313Z" style="fill:rgb(206,66,87);fill-rule:nonzero;"/>
+                            <path d="M34.942,2.891C34.996,1.869 35.016,0.905 35.004,0L51.425,0.421C51.209,1.162 51.007,1.865 50.817,2.528L50.804,2.576L50.793,2.626C50.668,3.207 50.362,4.936 50.051,6.696L49.969,7.159C49.62,9.127 49.288,10.994 49.171,11.5L48.725,13.431L50.704,13.336C57.81,12.993 66.523,12.327 73.064,11.467C79.028,10.682 85.166,9.538 91.477,8.041L91.582,22.674C87.664,23.354 83.291,24.004 78.462,24.617C73.107,25.212 67.492,25.723 61.622,26.148L60.548,26.227C55.541,26.596 53.393,26.755 48.065,26.993L46.813,27.049L46.645,28.29C46.567,28.872 46.498,29.372 46.438,29.811C46.017,32.897 46.014,32.92 45.727,36.493C41.994,37.312 38.503,38.285 35.256,39.411L35.246,39.414C33.902,39.891 32.581,40.408 31.285,40.966C31.532,37.075 31.85,32.37 32.127,29.044L32.263,27.42L30.632,27.42C28.169,27.42 23.588,27.381 20.707,27.297C17.898,27.127 15.088,27 12.278,26.914C10.122,26.779 8.148,26.672 6.358,26.59L5.938,12.054C7.223,12.205 8.778,12.392 10.602,12.62L10.652,12.626C13.475,12.883 16.51,13.139 19.758,13.396L19.778,13.396L19.799,13.398L20.619,13.441C24.064,13.618 29.676,13.908 32.477,13.908L33.794,13.908L33.965,12.602C34.293,10.083 34.305,9.935 34.358,9.291C34.367,9.177 34.378,9.048 34.392,8.888L34.553,7.186C34.726,5.874 34.856,4.439 34.942,2.891Z" style="fill:rgb(206,66,87);fill-rule:nonzero;"/>
+                            <path d="M67.823,32.858C67.96,31.947 68.072,31.124 68.162,30.394L83.658,34.083C83.418,34.738 83.146,35.5 82.844,36.364C82.246,37.986 81.649,39.651 81.052,41.356L81.041,41.389L81.031,41.421C80.521,43.121 80.099,44.47 79.765,45.474L79.761,45.485L79.757,45.498C77.397,53 74.452,59.81 70.928,65.936L70.905,65.975L70.886,66.015C68.184,71.433 64.234,76.212 60.408,80.245C58.554,82.2 56.743,83.965 55.125,85.542L54.936,85.727C54.136,86.507 53.376,87.248 52.687,87.943C52.557,87.471 52.428,86.996 52.301,86.519C51.099,82.032 50.126,77.111 49.378,71.754C52.83,68.585 56.287,63.267 59.161,57.87C62.041,52.462 64.439,46.782 65.74,42.692L65.985,41.897C66.331,40.857 66.83,39.23 67.103,37.528C67.329,36.453 67.467,35.42 67.601,34.425C67.672,33.896 67.741,33.379 67.821,32.87L67.823,32.858Z" style="fill:rgb(206,66,87);fill-rule:nonzero;"/>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg><span>AKASHA</span></div>
+        <a href="https://your-akasha.vercel.app/" class="btn-primary">Launch App</a>
+    </header>
+
+    <!-- Section Héro -->
+    <main class="hero">
+        <div class="hero-content">
+            <h1>Your entire media history, <br>built exactly the way you want it.</h1>
+            <p class="subtitle">A modern universal media tracker build by the community under AGPL-3.0.</p>
+            
+            <a href="https://your-akasha.vercel.app/" class="btn-primary btn-large">Launch App</a>
+            
+            <p class="disclaimer">
+                Akasha is a free, open-source project. We do not host any copyrighted content. <a class="legal-link" href="https://your-akasha.vercel.app/legal.html">Legal Disclaimer & Terms of Use</a>
+            </p>
+        </div>
+
+        <div class="hero-visual">
+            <!-- C'est ici que tu dois insérer l'export PNG transparent de ta maquette Figma -->
+            <img src="assets/mockup.png" alt="Akasha App on Laptop and Mobile" class="mockup-img">
+        </div>
+    </main>
+    <!-- SECTION FEATURES -->
+    <section class="features">
+        <h2 class="section-title">Features</h2>
+        
+        <div class="features-grid">
+            <!-- Carte 1 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                </div>
+                <h3>One Place. Every Story.</h3>
+                <p>Movies, TV shows, anime, manga, and books. All gathered in one place.</p>
+            </div>
+
+            <!-- Carte 2 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+                </div>
+                <h3>Smart Organization</h3>
+                <p>Real-time synced notes, custom tags, and built-in reminders.</p>
+            </div>
+
+            <!-- Carte 3 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="12" x2="9" y2="12"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
+                </div>
+                <h3>Track Your Progress</h3>
+                <p>Track your progress with statuses and interactive episode and chapter counters.</p>
+            </div>
+
+            <!-- Carte 4 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                </div>
+                <h3>Instant YouTube Import</h3>
+                <p>Paste a URL and add any video to your library in seconds.</p>
+            </div>
+
+            <!-- Carte 5 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                </div>
+                <h3>Your Space, Your Rules</h3>
+                <p>A private, open-source experience with no ads, no data selling, and no social pressure.</p>
+            </div>
+
+            <!-- Carte 6 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                </div>
+                <h3>And Beyond</h3>
+                <p>Personalized insights, yearly recaps, rankings, and more.</p>
+            </div>
+        </div>
+        
+    </section>
+    <div class="section-header">
+        <h2 class="section-title">Akasha in Action</h2>
+    </div>
+    <section class="screenshot-showcase">
+
+        <!-- Overlay pour le fondu noir en haut et en bas -->
+         
+        
+        <div class="fade-overlay"></div>
+        
+        
+        
+
+        <div class="showcase-grid">
+            <!-- Colonne 1 (Monte) -->
+            <div class="showcase-col scroll-up">
+                <!-- Set original -->
+                <img src="assets/S1.webp" alt="Akasha UI">
+                <img src="assets/S2.webp" alt="Akasha UI">
+                <img src="assets/S3.webp" alt="Akasha UI">
+                <img src="assets/S4.webp" alt="Akasha UI">
+                <!-- Set dupliqué OBLIGATOIRE pour la boucle infinie -->
+                <img src="assets/S1.webp" alt="Akasha UI">
+                <img src="assets/S2.webp" alt="Akasha UI">
+                <img src="assets/S3.webp" alt="Akasha UI">
+                <img src="assets/S4.webp" alt="Akasha UI">
+            </div>
+
+            <!-- Colonne 2 (Descend) -->
+            <div class="showcase-col scroll-down">
+                <img src="assets/S5.webp" alt="Akasha UI">
+                <img src="assets/S6.webp" alt="Akasha UI">
+                <img src="assets/S7.webp" alt="Akasha UI">
+                <img src="assets/S8.webp" alt="Akasha UI">
+                
+                <img src="assets/S5.webp" alt="Akasha UI">
+                <img src="assets/S6.webp" alt="Akasha UI">
+                <img src="assets/S7.webp" alt="Akasha UI">
+                <img src="assets/S8.webp" alt="Akasha UI">
+            </div>
+
+            <!-- Colonne 3 (Monte) -->
+            <div class="showcase-col scroll-up">
+                <img src="assets/S9.webp" alt="Akasha UI">
+                <img src="assets/S10.webp" alt="Akasha UI">
+                <img src="assets/S11.webp" alt="Akasha UI">
+                <img src="assets/S12.webp" alt="Akasha UI">
+                
+                <img src="assets/S9.webp" alt="Akasha UI">
+                <img src="assets/S10.webp" alt="Akasha UI">
+                <img src="assets/S11.webp" alt="Akasha UI">
+                <img src="assets/S12.webp" alt="Akasha UI">
+            </div>
+
+            <!-- Colonne 4 (Descend) -->
+            <div class="showcase-col scroll-down">
+                <img src="assets/S13.webp" alt="Akasha UI">
+                <img src="assets/S14.webp" alt="Akasha UI">
+                <img src="assets/S15.webp" alt="Akasha UI">
+                <img src="assets/S1.webp" alt="Akasha UI"> <!-- On réutilise la 1 pour compléter -->
+                
+                <img src="assets/S13.webp" alt="Akasha UI">
+                <img src="assets/S14.webp" alt="Akasha UI">
+                <img src="assets/S15.webp" alt="Akasha UI">
+                <img src="assets/S1.webp" alt="Akasha UI">
+            </div>
+        </div>
+    </section>
+    <!-- SECTION FAQ -->
+    <section class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        
+        <div class="faq-container">
+            <!-- Question 1 -->
+            <details class="faq-item">
+                <summary class="faq-question">
+                    Is it really 100% free? How do you make money?
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="faq-answer-wrapper">
+                    <div class="faq-answer">
+                        <p>Zero ads, zero hidden fees. This is an open-source project built out of passion, not profit. It's AGPL-3.0 licensed, so you can even peek under the hood yourself.</p>
+                    </div>
+                </div>
+                
+            </details>
+
+            <!-- Question 2 -->
+            <details class="faq-item">
+                <summary class="faq-question">
+                    Are you selling my personal data?
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="faq-answer-wrapper">
+                    <div class="faq-answer">
+                        <p>Absolutely not. Your lists, notes, and watch history stay yours. This is a personal tracker, not an ad network. We don't collect, share, or monetize your data.</p>
+                    </div>
+                </div>
+                
+            </details>
+
+            <!-- Question 3 -->
+            <details class="faq-item">
+                <summary class="faq-question">
+                    Where do the movies, anime, and books in search come from?
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="faq-answer-wrapper">
+                    <div class="faq-answer">
+                        <p>We pull from the best global sources in real time. TMDB for film, AniList for Asian pop culture, and Hardcover for literature. No stale archives, just fresh, reliable metadata.</p>
+                    </div>
+                </div>
+                
+            </details>
+
+            <!-- Question 4 -->
+            <details class="faq-item">
+                <summary class="faq-question">
+                    What if I want to track something niche or just a random video?
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="faq-answer-wrapper">
+                    <div class="faq-answer">
+                        <p>No problem! Add it manually, or paste a YouTube URL and import it instantly. If it exists, you can track it.</p>
+                    </div>
+                </div>
+                
+            </details>
+
+            <!-- Question 5 -->
+            <details class="faq-item">
+                <summary class="faq-question">
+                    Can I import my history from MyAnimeList, Letterboxd, or other?
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="faq-answer-wrapper">
+                    <div class="faq-answer">
+                    <p>Yes, you can. The import feature works with several platforms, and updates are being made to improve it.</p>
+                </div>
+                </div>
+                
+            </details>
+
+            <!-- Question 6 -->
+            <details class="faq-item">
+                <summary class="faq-question">
+                    Is there an iOS or Android app?
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="faq-answer-wrapper">
+                    <div class="faq-answer">
+                        <p>Not a native one yet. But this is a full-featured PWA web app. Just add it to your home screen, and it works like an app, with no download or store required.</p>
+                    </div>
+                </div>
+                
+            </details>
+        </div>
+    </section>
+    
+    <!-- SECTION CALL TO ACTION -->
+    <section class="cta-section">
+        <!-- Génération des points en CSS pur -->
+        <div class="cta-pattern left"></div>
+        <div class="cta-pattern right"></div>
+
+        <div class="cta-content">
+            <h2 class="cta-title">Stop scrolling.<br>Start indexing.</h2>
+            <p class="cta-subtitle">One dashboard. Infinite storage. Your entire media<br>history, built exactly the way you want it.</p>
+            
+            <a href="https://your-akasha.vercel.app/" class="btn-glow">Launch App</a>
+            
+            <p class="cta-disclaimer">Free, secure, and 100% open source under AGPL-3.0</p>
+        </div>
+    </section>
+</body>
+</html>
+

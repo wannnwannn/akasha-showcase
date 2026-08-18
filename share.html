@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shared Media - Akasha</title>
+    <!-- Mets ici ton CSS habituel -->
+</head>
+<body>
+    <div id="loading">Chargement des données...</div>
+    
+    <div id="media-card" style="display: none;">
+        <img id="media-poster" src="" alt="Poster">
+        <h1 id="media-title"></h1>
+        <!-- C'est ce bouton qui renvoie vers l'application principale avec la charge utile -->
+        <a id="open-app-btn" href="#" class="btn-glow">Ouvrir dans Akasha</a>
+    </div>
+
+    <script>
+        // 1. Récupération de l'ID dans l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const shareId = urlParams.get('id');
+
+        // Remplace par tes vraies clés Supabase
+        const SUPABASE_URL = String(import.meta.env.VITE_SUPABASE_URL || '');
+        const SUPABASE_ANON_KEY = String(import.meta.env.VITE_SUPABASE_ANON_KEY || '');
+        if (shareId) {
+            // 2. Requête directe à l'API REST de Supabase sans installer de librairie lourde
+            fetch(`${SUPABASE_URL}/rest/v1/shared_links?id=eq.${shareId}&select=media_data`, {
+                headers: {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const media = data[0].media_data;
+                    
+                    // 3. Hydratation de la page vitrine
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('media-card').style.display = 'block';
+                    
+                    document.getElementById('media-title').innerText = media.title || media.name;
+                    document.getElementById('media-poster').src = media.image_url || media.poster_path;
+                    
+                    // 4. Configuration du bouton de redirection vers ton app React
+                    document.getElementById('open-app-btn').href = `https://your-akasha.vercel.app/?import=${shareId}`;
+                } else {
+                    document.getElementById('loading').innerText = "Ce lien a expiré ou n'existe pas.";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
