@@ -1,110 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shared Media - Akasha</title>
-    <!-- On charge le nouveau fichier CSS dédié -->
+    <title>Akasha - Fiche Partagée</title>
     <link rel="stylesheet" href="/share.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="loading" class="loader">Analyse de la source...</div>
+    <div id="loading" class="loader">Analyse de la matrice Akasha...</div>
 
     <div id="media-card" class="card" style="display: none;">
-        <!-- Colonne Gauche : Image -->
         <div class="poster-container">
-            <img id="media-poster" src="" alt="Affiche de l'oeuvre">
-            <span id="media-type" class="badge">Média</span>
+            <img id="media-poster" src="" alt="Affiche">
         </div>
         
-        <!-- Colonne Droite : Contenu -->
         <div class="card-content">
-            <div class="meta-info">
-                <span id="media-year"></span>
+            <div class="header-row">
+                <h1 id="media-title">Titre</h1>
+                <!-- La pastille est maintenant à droite du titre -->
+                <span id="media-type" class="badge">Type</span>
             </div>
-            <h1 id="media-title">Titre</h1>
-            <p id="media-desc" class="description">Aucune description disponible pour cette œuvre.</p>
+
+            <!-- Bloc d'infos techniques -->
+            <div class="meta-block" id="meta-block">
+                <!-- Les éléments seront injectés ici en JS -->
+            </div>
+
+            <div id="media-author" class="author"></div>
+
+            <div id="media-tags" class="tags-container"></div>
+
+            <p id="media-desc" class="description"></p>
             
-            <a id="open-app-btn" href="#" class="btn-glow">Ouvrir dans Akasha</a>
+            <!-- Boutons d'action -->
+            <div class="actions-grid">
+                <a id="btn-trailer" href="#" target="_blank" class="btn-action">
+                    ▶ Bande-annonce
+                </a>
+                <a id="btn-release" href="#" target="_blank" class="btn-action">
+                    📅 Date de sortie
+                </a>
+                <a id="open-app-btn" href="#" class="btn-action btn-primary">
+                    Ouvrir dans Akasha
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
-        // 1. Récupération de l'ID dans l'URL
         const path = window.location.pathname;
         let shareId = null;
-        // Si l'URL contient bien "/s/", on coupe la chaîne de texte pour récupérer ce qu'il y a après
-        if (path.startsWith('/s/')) {
-            shareId = path.split('/s/')[1];
-        }
+        if (path.startsWith('/s/')) shareId = path.split('/s/')[1];
 
         // Remplace par tes vraies clés Supabase
         const SUPABASE_URL = 'https://ewdtspjgcuvwvjnooytf.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV3ZHRzcGpnY3V2d3Zqbm9veXRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjMxMzgsImV4cCI6MjA5MTI5OTEzOH0.fHTGoA8OFOhk7VusZFgCg7GBn0cgp-UrYeJjV2gxl10';
         if (shareId) {
-            // 3. Requête à la base de données
             fetch(`${SUPABASE_URL}/rest/v1/shared_links?id=eq.${shareId}&select=media_data`, {
-                headers: {
-                    'apikey': SUPABASE_ANON_KEY,
-                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                }
+                headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
             })
             .then(res => res.json())
             .then(data => {
                 if (data.length > 0) {
                     const media = data[0].media_data;
-                    
-                    // On cache le loader, on affiche la carte
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('media-card').style.display = 'flex';
                     
-                    // HYDRATATION ROBUSTE : On cherche les données peu importe le format de l'API
+                    const title = media.title || media.name || media.title_romaji || 'Titre inconnu';
+                    document.getElementById('media-title').innerText = title;
                     
-                    // Titre
-                    document.getElementById('media-title').innerText = media.title || media.name || media.title_romaji || 'Titre inconnu';
-                    
-                    // Image (Couvre tous les cas : Anilist, TMDB, Custom...)
                     const coverUrl = media.cover || media.cover_url || media.image_url || media.poster_path;
-                    const posterEl = document.getElementById('media-poster');
-                    if(coverUrl) {
-                        posterEl.src = coverUrl;
-                    } else {
-                        posterEl.style.display = 'none'; // Cacher l'encart si pas d'image du tout
-                    }
+                    if(coverUrl) document.getElementById('media-poster').src = coverUrl;
 
-                    // Type (Film, TV, Anime...)
-                    if(media.type) {
-                        document.getElementById('media-type').innerText = media.type;
-                    } else {
-                        document.getElementById('media-type').style.display = 'none';
-                    }
-
-                    // Année
-                    const yearInfo = media.year || media.release_date || media.first_air_date;
-                    if(yearInfo) {
-                        document.getElementById('media-year').innerText = String(yearInfo).substring(0, 4);
-                    }
-
-                    // Description (Couvre Anilist, TMDB, etc.)
-                    const desc = media.description || media.synopsis || media.overview;
-                    if(desc) {
-                        // Supprime les balises HTML potentielles envoyées par l'API (comme Anilist)
-                        document.getElementById('media-desc').innerHTML = desc; 
-                    }
+                    // --- GESTION DU TYPE ET DES COULEURS (Inspiré d'Akasha) ---
+                    const typeEl = document.getElementById('media-type');
+                    const mType = (media.type || 'MEDIA').toUpperCase();
+                    typeEl.innerText = mType;
                     
-                    // Le lien de redirection finale
-                    document.getElementById('open-app-btn').href = `https://app.akasha.app/?import=${shareId}`;
-                } else {
-                    document.getElementById('loading').innerText = "Ce lien a expiré ou n'existe pas.";
+                    // Attribution de la couleur selon le type
+                    if(mType.includes('ANIME')) { typeEl.style.backgroundColor = 'var(--color-anime)'; typeEl.style.color = '#fff'; }
+                    else if(mType.includes('MANGA')) { typeEl.style.backgroundColor = 'var(--color-manga)'; typeEl.style.color = '#fff'; }
+                    else if(mType.includes('FILM') || mType.includes('MOVIE')) { typeEl.style.backgroundColor = 'var(--color-film)'; typeEl.style.color = '#fff'; }
+                    else if(mType.includes('SERIE') || mType.includes('TV')) { typeEl.style.backgroundColor = 'var(--color-serie)'; typeEl.style.color = '#fff'; }
+                    else if(mType.includes('YOUTUBE')) { typeEl.style.backgroundColor = 'var(--color-youtube)'; typeEl.style.color = '#fff'; }
+                    else if(mType.includes('LIVRE') || mType.includes('BOOK')) { typeEl.style.backgroundColor = 'var(--color-livre)'; typeEl.style.color = '#fff'; }
+                    else if(mType.includes('WEBCOMIC') || mType.includes('WEBTOON')) { typeEl.style.backgroundColor = 'var(--color-webcomic)'; typeEl.style.color = '#fff'; }
+                    else { typeEl.style.backgroundColor = 'rgba(255,255,255,0.1)'; }
+
+                    // --- BLOC META (Episodes, Durée, Source) ---
+                    const metaBlock = document.getElementById('meta-block');
+                    
+                    // 1. Episodes/Chapitres
+                    const totalEps = media.totalEpisodes || media.total_episodes || media.episodes;
+                    const totalChap = media.chapters;
+                    if (totalEps) metaBlock.innerHTML += `<div class="meta-item">0 / ${totalEps} EPS</div>`;
+                    else if (totalChap) metaBlock.innerHTML += `<div class="meta-item">0 / ${totalChap} CHAP</div>`;
+
+                    // 2. Durée
+                    if (media.runtime || media.duration) {
+                        metaBlock.innerHTML += `<div class="meta-item">⏱ ${media.runtime || media.duration}m</div>`;
+                    }
+
+                    // 3. Année + Source
+                    const yearInfo = String(media.year || media.release_date || media.first_air_date || '').substring(0, 4);
+                    const source = media.source ? media.source.toUpperCase() : (media.id && media.id.toString().length > 6 ? 'ANILIST' : 'TMDB');
+                    if(yearInfo) metaBlock.innerHTML += `<div class="meta-item">${yearInfo} • ${source}</div>`;
+
+                    // --- REALISATEUR / AUTEUR ---
+                    const authorEl = document.getElementById('media-author');
+                    if (media.director) authorEl.innerText = `Par ${media.director}`;
+                    else if (media.author) authorEl.innerText = `Par ${media.author}`;
+                    else authorEl.style.display = 'none';
+
+                    // --- TAGS / GENRES ---
+                    const tagsEl = document.getElementById('media-tags');
+                    const genres = media.genres || media.tags || [];
+                    if (genres.length > 0) {
+                        // On prend les 3 premiers genres maximum pour ne pas casser le design
+                        genres.slice(0, 3).forEach(g => {
+                            tagsEl.innerHTML += `<span class="tag">${g.name || g}</span>`;
+                        });
+                    } else {
+                        tagsEl.style.display = 'none';
+                    }
+
+                    // --- DESCRIPTION ---
+                    const desc = media.description || media.synopsis || media.overview || '';
+                    document.getElementById('media-desc').innerHTML = desc;
+
+                    // --- ACTIONS (Recherches Google) ---
+                    const safeTitle = encodeURIComponent(title);
+                    document.getElementById('btn-trailer').href = `https://www.youtube.com/results?search_query=${safeTitle}+trailer+vf`;
+                    document.getElementById('btn-release').href = `https://www.google.com/search?q=${safeTitle}+date+de+sortie`;
+                    document.getElementById('open-app-btn').href = `https://your-akasha.vercel.app/?import=${shareId}`;
                 }
             })
-            .catch(err => {
-                console.error(err);
-                document.getElementById('loading').innerText = "Erreur de connexion avec le serveur.";
-            });
-        } else {
-            document.getElementById('loading').innerText = "Lien de partage invalide.";
+            .catch(() => { document.getElementById('loading').innerText = "Erreur de connexion."; });
         }
     </script>
 </body>
