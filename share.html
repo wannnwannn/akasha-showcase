@@ -22,7 +22,7 @@
 
         // Remplace par tes vraies clés Supabase
         const SUPABASE_URL = 'https://ewdtspjgcuvwvjnooytf.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_2xmlfuPzKoz5_x7em25Bfg_o8C2A218';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV3ZHRzcGpnY3V2d3Zqbm9veXRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjMxMzgsImV4cCI6MjA5MTI5OTEzOH0.fHTGoA8OFOhk7VusZFgCg7GBn0cgp-UrYeJjV2gxl10';
         if (shareId) {
             // 2. Requête directe à l'API REST de Supabase sans installer de librairie lourde
             fetch(`${SUPABASE_URL}/rest/v1/shared_links?id=eq.${shareId}&select=media_data`, {
