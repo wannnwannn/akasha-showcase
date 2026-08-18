@@ -119,27 +119,36 @@ body {
 
 .description { color: var(--text-muted); line-height: 1.6; margin-bottom: 2.5rem; font-size: 1rem; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* --- LE PIED DE PAGE (Boutons) --- */
+/* --- LE PIED DE PAGE (Conteneur principal) --- */
 .card-footer {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-direction: column;
+    gap: 1.2rem; /* Espace vertical entre la ligne 1 et 2 */
     margin-top: auto;
-    gap: 1.5rem;
 }
 
-/* Actions Secondaires (Groupées à gauche) */
-.secondary-actions {
+/* Les lignes horizontales */
+.action-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 1rem;
+    align-items: center;
 }
 
+/* La ligne du bas (Séparée et justifiée aux extrémités) */
+.primary-row {
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Ligne de séparation très fine */
+}
+
+/* --- LE DESIGN DES BOUTONS --- */
+/* Boutons secondaires (Grisés) */
 .btn-action {
     background: var(--bg-btn);
     color: var(--text-muted);
     text-decoration: none;
-    padding: 0.6rem 1rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 600;
@@ -147,7 +156,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .btn-action:hover { 
@@ -155,22 +164,18 @@ body {
     color: var(--text-main);
 }
 
-/* Action Primaire (Isolée à droite) */
-.primary-action-wrapper {
-    flex-shrink: 0; /* Empêche le bouton principal de s'écraser */
-}
-
+/* Bouton principal (Rouge) */
 .btn-primary {
     background: var(--akasha-red);
     color: white;
     text-decoration: none;
-    padding: 0.9rem 1.8rem;
-    border-radius: 12px;
-    font-size: 1rem;
+    padding: 0.8rem 1.8rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
     font-weight: 800;
     transition: all 0.3s ease;
+    border: none;
     box-shadow: 0 4px 15px rgba(210, 79, 89, 0.3);
-    display: inline-block;
 }
 
 .btn-primary:hover { 
@@ -179,25 +184,22 @@ body {
     box-shadow: 0 6px 20px rgba(210, 79, 89, 0.5);
 }
 
-/* --- RESPONSIVE MOBILE --- */
+/* --- COMPORTEMENT MOBILE --- */
 @media (max-width: 768px) {
-    body { padding: 1rem; }
-    .card { flex-direction: column; }
-    .poster-container { width: 100%; height: 350px; }
-    .card-content { padding: 1.5rem; }
-    .header-row { flex-direction: column-reverse; }
-    
-    /* Sur mobile, on empile les actions pour que le bouton primaire prenne toute la largeur en bas */
-    .card-footer {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 1.5rem;
-    }
-    .secondary-actions {
+    /* On recentre la première ligne */
+    .action-row {
         justify-content: center;
     }
+    
+    /* On empile le bloc du bas pour que le bouton Rouge soit massif et en dernier */
+    .primary-row {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
     .btn-primary {
-        width: 100%;
         text-align: center;
+        padding: 1rem;
     }
 }
