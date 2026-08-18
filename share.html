@@ -21,8 +21,8 @@
         const shareId = urlParams.get('id');
 
         // Remplace par tes vraies clés Supabase
-        const SUPABASE_URL = String(import.meta.env.VITE_SUPABASE_URL || '');
-        const SUPABASE_ANON_KEY = String(import.meta.env.VITE_SUPABASE_ANON_KEY || '');
+        const SUPABASE_URL = 'https://ewdtspjgcuvwvjnooytf.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_2xmlfuPzKoz5_x7em25Bfg_o8C2A218';
         if (shareId) {
             // 2. Requête directe à l'API REST de Supabase sans installer de librairie lourde
             fetch(`${SUPABASE_URL}/rest/v1/shared_links?id=eq.${shareId}&select=media_data`, {
