@@ -184,59 +184,62 @@ body {
     box-shadow: 0 6px 20px rgba(210, 79, 89, 0.5);
 }
 
-/* --- COMPORTEMENT MOBILE OPTIMISÉ (Style Modale Akasha) --- */
+/* --- COMPORTEMENT MOBILE CORRIGÉ --- */
 @media (max-width: 768px) {
     body { 
         padding: 1rem; 
-        align-items: center; /* On garde la carte bien centrée verticalement */
+        align-items: center; 
     }
 
     .card { 
         flex-direction: column; 
         max-width: 100%;
         border-radius: 20px;
-        /* Un peu d'air autour de la carte sur mobile */
         margin: auto;
     }
 
-    /* Le conteneur de l'image devient une zone de centrage */
+    /* Le conteneur centre le tout */
     .poster-container { 
         width: 100%; 
         height: auto;
         min-width: auto;
         display: flex;
         justify-content: center;
-        padding: 1.5rem 1.5rem 0 1.5rem; /* Espace autour de la miniature */
-        background-color: transparent; /* Supprime le fond noir brut si l'image a des arrondis */
+        padding: 1.5rem 1.5rem 0 1.5rem;
+        background-color: transparent;
     }
 
-    /* La miniature compacte, arrondie et élégante comme dans ta capture */
-    .poster-container img {
-        width: 160px;       /* Largeur fixe compacte */
-        height: 230px;      /* Hauteur proportionnelle format affiche */
+    /* Le wrapper de la miniature devient la référence absolue pour la pastille */
+    .poster-wrapper {
+        position: relative;
+        width: 160px;
+        height: 230px;
+    }
+
+    .poster-wrapper img {
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        border-radius: 14px;/* Bords arrondis identiques à l'app */
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Profondeur */
+        border-radius: 14px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
 
-    /* Ajustement de la pastille (badge) pour qu'elle se pose sur la miniature */
-    .badge {
+    /* La pastille se loge maintenant parfaitement EN HAUT À GAUCHE de l'affiche */
+    .poster-wrapper .badge {
         position: absolute;
-        top: 2.2rem;
-        left: 50%;
-        transform: translateX(-50%); /* Centré en haut de l'affiche */
-        font-size: 0.65rem;
-        padding: 0.3rem 0.6rem;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        top: 10px;
+        left: 10px;
+        font-size: 0.6rem;
+        padding: 0.25rem 0.5rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        letter-spacing: 0.5px;
     }
 
-    /* Le contenu textuel en dessous */
     .card-content { 
         padding: 1.5rem; 
-        text-align: center; /* Centre le texte sur mobile pour harmoniser avec la miniature */
+        text-align: center; 
     }
 
-    /* On réaligne les éléments internes centrés pour correspondre à la modale */
     .header-row {
         flex-direction: column;
         align-items: center;
@@ -256,7 +259,6 @@ body {
         margin-bottom: 1rem;
     }
 
-    /* Les boutons s'empirent proprement en bas */
     .card-footer {
         gap: 0.8rem;
     }
