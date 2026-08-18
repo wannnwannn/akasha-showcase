@@ -1,0 +1,163 @@
+:root {
+    --bg-dark: #101010;
+    --bg-card: rgba(22, 22, 22, 0.7);
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --akasha-red: #d24f59;
+    --akasha-red-hover: #b8434c;
+    --font-sans: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    /* Un halo rouge subtil en arrière-plan */
+    background-image: radial-gradient(circle at 50% 0%, rgba(210, 79, 89, 0.15) 0%, transparent 60%);
+}
+
+/* --- LE CHARGEMENT --- */
+.loader {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--akasha-red);
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* --- LA CARTE DE PARTAGE --- */
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    overflow: hidden;
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUpFade 0.5s ease forwards;
+}
+
+@keyframes slideUpFade {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Zone Image */
+.poster-container {
+    position: relative;
+    width: 40%;
+    min-width: 320px;
+    flex-shrink: 0;
+    background-color: #000;
+}
+
+.poster-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Badge Type (Film, Anime, etc.) */
+.badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-main);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Zone Texte */
+.card-content {
+    padding: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.meta-info {
+    color: var(--akasha-red);
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-content h1 {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.description {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    font-size: 1.05rem;
+    /* Coupe le texte s'il est trop long pour ne pas casser la carte */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- BOUTON --- */
+.btn-glow {
+    background-color: var(--akasha-red);
+    color: white;
+    text-decoration: none;
+    padding: 1.2rem 2.5rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 25px rgba(210, 79, 89, 0.3);
+    text-align: center;
+    display: inline-block;
+    width: fit-content;
+}
+
+.btn-glow:hover {
+    background-color: var(--akasha-red-hover);
+    box-shadow: 0 0 40px rgba(210, 79, 89, 0.5);
+    transform: scale(1.02);
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    .card { flex-direction: column; }
+    .poster-container {
+        width: 100%;
+        height: 400px;
+        min-width: auto;
+    }
+    .card-content { padding: 2rem; }
+    .btn-glow { width: 100%; }
+}
