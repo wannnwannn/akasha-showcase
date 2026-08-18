@@ -119,42 +119,85 @@ body {
 
 .description { color: var(--text-muted); line-height: 1.6; margin-bottom: 2.5rem; font-size: 1rem; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* Actions (Boutons Google + Akasha) */
-.actions-grid {
+/* --- LE PIED DE PAGE (Boutons) --- */
+.card-footer {
     display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
     margin-top: auto;
+    gap: 1.5rem;
+}
+
+/* Actions Secondaires (Groupées à gauche) */
+.secondary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
 }
 
 .btn-action {
     background: var(--bg-btn);
-    color: var(--text-main);
+    color: var(--text-muted);
     text-decoration: none;
-    padding: 0.8rem 1.2rem;
-    border-radius: 10px;
-    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
     font-weight: 600;
-    transition: 0.2s ease;
-    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
-.btn-action:hover { background: rgba(255,255,255,0.15); }
+
+.btn-action:hover { 
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text-main);
+}
+
+/* Action Primaire (Isolée à droite) */
+.primary-action-wrapper {
+    flex-shrink: 0; /* Empêche le bouton principal de s'écraser */
+}
 
 .btn-primary {
     background: var(--akasha-red);
-    border: none;
+    color: white;
+    text-decoration: none;
+    padding: 0.9rem 1.8rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 800;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(210, 79, 89, 0.3);
+    display: inline-block;
 }
-.btn-primary:hover { background: var(--akasha-red-hover); transform: scale(1.02); }
 
+.btn-primary:hover { 
+    background: var(--akasha-red-hover); 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(210, 79, 89, 0.5);
+}
+
+/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 768px) {
     body { padding: 1rem; }
     .card { flex-direction: column; }
     .poster-container { width: 100%; height: 350px; }
     .card-content { padding: 1.5rem; }
     .header-row { flex-direction: column-reverse; }
-    .actions-grid { flex-direction: column; }
-    .btn-action { justify-content: center; width: 100%; }
+    
+    /* Sur mobile, on empile les actions pour que le bouton primaire prenne toute la largeur en bas */
+    .card-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+    }
+    .secondary-actions {
+        justify-content: center;
+    }
+    .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
 }
