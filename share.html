@@ -136,8 +136,8 @@
                     const metaBlock = document.getElementById('meta-block');
                     const totalEps = media.totalEpisodes || media.total_episodes || media.episodes;
                     const totalChap = media.chapters;
-                    if (totalEps) metaBlock.innerHTML += `<div class="meta-item">0 / ${totalEps} EPS</div>`;
-                    else if (totalChap) metaBlock.innerHTML += `<div class="meta-item">0 / ${totalChap} CHAP</div>`;
+                    if (totalEps) metaBlock.innerHTML += `<div class="meta-item">${totalEps} EPS</div>`;
+                    else if (totalChap) metaBlock.innerHTML += `<div class="meta-item">${totalChap} CHAP</div>`;
 
                     if (media.runtime || media.duration) {
                         metaBlock.innerHTML += `<div class="meta-item">⏱ ${media.runtime || media.duration}m</div>`;
@@ -177,7 +177,7 @@
                     
                     document.getElementById('btn-trailer').href = `https://www.youtube.com/results?search_query=${safeTitle}${trailerQuery}`;
                     document.getElementById('btn-release').href = `https://www.google.com/search?q=${safeTitle}${releaseQuery}`;
-                    document.getElementById('open-app-btn').href = `https://app.akasha.app/?import=${shareId}`;
+                    document.getElementById('open-app-btn').href = `https://your-akasha.vercel.app/?import=${shareId}`;
                 } else {
                     document.getElementById('loading').innerText = t.errorExp;
                 }
