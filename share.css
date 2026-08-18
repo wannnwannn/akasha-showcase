@@ -184,62 +184,96 @@ body {
     box-shadow: 0 6px 20px rgba(210, 79, 89, 0.5);
 }
 
-/* --- COMPORTEMENT MOBILE --- */
+/* --- COMPORTEMENT MOBILE OPTIMISÉ (Style Modale Akasha) --- */
 @media (max-width: 768px) {
     body { 
         padding: 1rem; 
-        align-items: flex-start; /* Évite de couper le haut de la carte si elle est trop longue */
+        align-items: center; /* On garde la carte bien centrée verticalement */
     }
 
     .card { 
-        flex-direction: column; /* On passe l'affichage de horizontal à vertical */
+        flex-direction: column; 
         max-width: 100%;
-        border-radius: 16px;
+        border-radius: 20px;
+        /* Un peu d'air autour de la carte sur mobile */
+        margin: auto;
     }
 
-    /* L'image passe en haut en mode bannière propre */
+    /* Le conteneur de l'image devient une zone de centrage */
     .poster-container { 
         width: 100%; 
-        height: 280px; /* Hauteur fixe contrôlée pour ne pas étouffer l'écran */
+        height: auto;
         min-width: auto;
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 1.5rem 0 1.5rem; /* Espace autour de la miniature */
+        background-color: transparent; /* Supprime le fond noir brut si l'image a des arrondis */
     }
 
+    /* La miniature compacte, arrondie et élégante comme dans ta capture */
     .poster-container img {
-        width: 100%;
-        height: 100%;
+        width: 160px;       /* Largeur fixe compacte */
+        height: 230px;      /* Hauteur proportionnelle format affiche */
         object-fit: cover;
-        object-position: center top; /* Centre l'image sur le haut pour garder les visages/titres visibles */
+        border-radius: 14px;/* Bords arrondis identiques à l'app */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Profondeur */
     }
 
-    /* Le contenu respire */
+    /* Ajustement de la pastille (badge) pour qu'elle se pose sur la miniature */
+    .badge {
+        position: absolute;
+        top: 2.2rem;
+        left: 50%;
+        transform: translateX(-50%); /* Centré en haut de l'affiche */
+        font-size: 0.65rem;
+        padding: 0.3rem 0.6rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    /* Le contenu textuel en dessous */
     .card-content { 
         padding: 1.5rem; 
+        text-align: center; /* Centre le texte sur mobile pour harmoniser avec la miniature */
     }
 
-    /* Titre responsive pour éviter les coupures bizarres */
+    /* On réaligne les éléments internes centrés pour correspondre à la modale */
+    .header-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .meta-block {
+        justify-content: center;
+    }
+
+    .tags-container {
+        justify-content: center;
+    }
+
     .card-content h1 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
     }
 
-    /* Les boutons s'empilent proprement en prenant toute la largeur */
+    /* Les boutons s'empirent proprement en bas */
     .card-footer {
         gap: 0.8rem;
     }
 
     .action-row {
         flex-direction: column;
-        align-items: stretch; /* Les boutons prennent toute la largeur disponible */
+        align-items: stretch;
         gap: 0.8rem;
     }
 
     .btn-action, .btn-primary {
         width: 100%;
-        justify-content: center; /* Centre le texte et les icônes dans les boutons */
+        justify-content: center;
         text-align: center;
         padding: 0.8rem 1rem;
     }
 
-    /* On s'assure que le bouton principal Akasha reste bien le plus visible en bas */
     .primary-row {
         flex-direction: column;
         padding-top: 0.8rem;
