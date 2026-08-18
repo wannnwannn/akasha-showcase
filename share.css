@@ -148,9 +148,9 @@ body {
     background: var(--bg-btn);
     color: var(--text-muted);
     text-decoration: none;
-    padding: 1.6rem 2.2rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
     transition: all 0.2s ease;
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -169,7 +169,7 @@ body {
     background: var(--akasha-red);
     color: white;
     text-decoration: none;
-    padding: 1.8rem 2.8rem;
+    padding: 0.8rem 2.8rem;
     border-radius: 10px;
     font-size: 1rem;
     font-weight: 800;
