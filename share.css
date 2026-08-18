@@ -186,20 +186,63 @@ body {
 
 /* --- COMPORTEMENT MOBILE --- */
 @media (max-width: 768px) {
-    /* On recentre la première ligne */
+    body { 
+        padding: 1rem; 
+        align-items: flex-start; /* Évite de couper le haut de la carte si elle est trop longue */
+    }
+
+    .card { 
+        flex-direction: column; /* On passe l'affichage de horizontal à vertical */
+        max-width: 100%;
+        border-radius: 16px;
+    }
+
+    /* L'image passe en haut en mode bannière propre */
+    .poster-container { 
+        width: 100%; 
+        height: 280px; /* Hauteur fixe contrôlée pour ne pas étouffer l'écran */
+        min-width: auto;
+    }
+
+    .poster-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top; /* Centre l'image sur le haut pour garder les visages/titres visibles */
+    }
+
+    /* Le contenu respire */
+    .card-content { 
+        padding: 1.5rem; 
+    }
+
+    /* Titre responsive pour éviter les coupures bizarres */
+    .card-content h1 {
+        font-size: 1.6rem;
+    }
+
+    /* Les boutons s'empilent proprement en prenant toute la largeur */
+    .card-footer {
+        gap: 0.8rem;
+    }
+
     .action-row {
-        justify-content: center;
+        flex-direction: column;
+        align-items: stretch; /* Les boutons prennent toute la largeur disponible */
+        gap: 0.8rem;
     }
-    
-    /* On empile le bloc du bas pour que le bouton Rouge soit massif et en dernier */
-    .primary-row {
-        flex-direction: column-reverse;
-        align-items: stretch;
-        gap: 1rem;
-    }
-    
-    .btn-primary {
+
+    .btn-action, .btn-primary {
+        width: 100%;
+        justify-content: center; /* Centre le texte et les icônes dans les boutons */
         text-align: center;
-        padding: 1rem;
+        padding: 0.8rem 1rem;
+    }
+
+    /* On s'assure que le bouton principal Akasha reste bien le plus visible en bas */
+    .primary-row {
+        flex-direction: column;
+        padding-top: 0.8rem;
+        gap: 0.8rem;
     }
 }
