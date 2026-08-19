@@ -253,7 +253,7 @@ body {
     /* Sur mobile, on redimensionne l'affiche en format miniature élégant */
 
     .poster-wrapper img {
-        width: 240px;
+        width: 100%;
         height: auto;
         object-fit: cover;
     }
