@@ -240,18 +240,17 @@ body {
     }
     .poster-wrapper {
         display: flex;
-        justify-content: center;
+        justify-content: center !important;
+        align-items: center !important;
         margin: 0 auto;
-    }
-
-    /* Sur mobile, on redimensionne l'affiche en format miniature élégant */
-    .poster-wrapper {
         width: 160px;
         height: 230px;
         border-radius: 14px;
         overflow: hidden;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
+
+    /* Sur mobile, on redimensionne l'affiche en format miniature élégant */
 
     .poster-wrapper img {
         width: 100%;
