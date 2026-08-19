@@ -229,7 +229,7 @@ body {
     }
 
     .poster-container { 
-        width: 1005; 
+        width: 100%; 
         height: auto;
         min-width: auto;
         display: flex;
@@ -243,8 +243,8 @@ body {
         justify-content: center !important;
         align-items: center !important;
         margin: 0 auto;
-        width: 160px;
-        height: 230px;
+        width: 100%; 
+        height: auto;
         border-radius: 14px;
         overflow: hidden;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
@@ -253,8 +253,8 @@ body {
     /* Sur mobile, on redimensionne l'affiche en format miniature élégant */
 
     .poster-wrapper img {
-        width: 100%;
-        height: 100%;
+        width: 1004px;
+        height: auto;
         object-fit: cover;
     }
 
