@@ -1,0 +1,2 @@
+Copyright (c) 2026 Ewan Baverel. All rights reserved.
+The source code, design, and assets in this repository are proprietary. Unauthorized copying, modification, or distribution is strictly prohibited.
